@@ -1,3 +1,3 @@
 # BMSCE-DSA-Lab-Programs
 ## Programs
-- Stack - using Array
+1. Stack - using Array
