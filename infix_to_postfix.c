@@ -16,17 +16,15 @@ void stackConstructor(Stack *s){
 void push(Stack *s, char ele){
         s->head++;
         s->container[s->head] = ele;
-        printf("\n");
 }
 
 void pop(Stack *s){
     if(s->head == -1){
         printf("STACKUNDERFLOW\n\n");
-        return;
+		return;
     }
     
     s->head--;
-    printf("\n");
 }
 
 void display(Stack *s, int len){
@@ -103,15 +101,13 @@ int main(){
 				push(&opeS, inputExp[i]);
 			else if(inputExp[i] == ')'){
 				while(top(&opeS) != '('){
-					if(opeS.head == -1)
-						break;
 					push(&postS, top(&opeS));
 					pop(&opeS);
 				}
 				pop(&opeS);
 			}
 			else{
-				while(givePrecedence(top(&opeS)) >= givePrecedence(inputExp[i])){
+				while(givePrecedence(top(&opeS)) >= givePrecedence(inputExp[i]) && top(&opeS) != '('){
 					push(&postS, top(&opeS));
 					pop(&opeS);
 				}
