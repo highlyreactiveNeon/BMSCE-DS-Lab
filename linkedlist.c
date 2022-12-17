@@ -1,132 +1,191 @@
 #include<stdio.h>
 #include<stdlib.h>
 
-struct node{
-int value;
-struct node *next;
-};
+typedef struct Node {
+    struct Node* nextNode;
+    int data;
+} Node;
 
-typedef struct node *NODE;
+typedef struct List {
+    struct Node* head;
+    int size;
+} List;
 
-NODE getnode()
-{
-    NODE temp;
-    temp=(NODE)malloc(sizeof(struct node));
-
-    if(temp==NULL)
-    {
-        printf("Memory could not be allocated.");
-    }
-
-    return(temp);
-
+void listConstructor(List* list) {
+    list->size = 0;
+    list->head = (Node*)0;
 }
 
-NODE insert_beg(NODE first,int item)
-{
-    NODE temp;
-    temp=getnode();
-
-    temp->value=item;
-    temp->next=NULL;
-
-    if(first==NULL)
-        return temp;
-    else
-    {
-        temp->next=first;
-        first=temp;
-        return first;
-    }
-
+void listConstructorHeap(List** list) {
+    *list = (List*)malloc(sizeof(List));
+    (*list)->size = 0;
+    (*list)->head = (Node*)0;
 }
 
-NODE insert_end(NODE first,int item)
-{
-    NODE New,last;
-    New=getnode();
-    New->value=item;
-    New->next=NULL;
+void push_front(List* list, int val) {
+    Node* newNode = (Node*)malloc(sizeof(Node));
+    newNode->data = val;
+    newNode->nextNode = list->head;
 
-    if(first==NULL)
-        return New;
-   
-    if(first->next==NULL)
-    {
-    first->next=New;
-    return first;
+    list->head = newNode;
+    list->size++;
+}
+
+// void push_back(List* list, int val) {
+//     Node* currentNode = list->head;
+//     Node* prevNode = (Node*)list;
+//     while(currentNode != (Node*)0){
+//         prevNode = currentNode;
+//         currentNode = currentNode->nextNode;
+//     }
+//     currentNode = (Node*)malloc(sizeof(Node));
+//     prevNode->nextNode = currentNode;
+//     currentNode->data = val;
+//     currentNode->nextNode = (Node*)0;
+//     list->size++;
+// }
+
+void push_back(List* list, int val) {
+    Node* currentNode = (Node*)list;
+    while(currentNode->nextNode != (Node*)0)
+        currentNode = currentNode->nextNode;
+    currentNode->nextNode = (Node*)malloc(sizeof(Node));
+    currentNode = currentNode->nextNode;
+    currentNode->data = val;
+    currentNode->nextNode = (Node*)0;
+    list->size++;
+}
+
+void push_at(List* list, int pos, int val) {
+    Node* currentNode = (Node*)list;
+
+    for(int i = 0; i < pos; i++)
+        currentNode = currentNode->nextNode;
+
+    Node* newNode = (Node*)malloc(sizeof(Node));
+    newNode->data = val;
+    newNode->nextNode = currentNode->nextNode;
+    currentNode->nextNode = newNode;
+}
+
+int at(List* list, int pos) {
+    Node* currentNode = list->head;
+
+    for(int i = 0; i < pos; i++)
+        currentNode = currentNode->nextNode;
+
+    return currentNode->data;
+}
+
+int front(List* list) {
+    return list->head->data;
+}
+
+int back(List* list) {
+    Node* currentNode = (Node*)list;
+
+    while(currentNode->nextNode != (Node*)0)
+        currentNode = currentNode->nextNode;
+
+    return currentNode->data;    
+}
+
+void pop_front(List* list) {
+    Node* temp = list->head;
+    list->head = temp->nextNode;
+    free(temp);
+}
+
+void pop_back(List* list) {
+    Node* currentNode = list->head;
+    Node* prevNode = (Node*)list;
+
+    while(currentNode->nextNode != (Node*)0) {
+        prevNode = currentNode;
+        currentNode = currentNode->nextNode;
     }
-  
-    last=getnode();
-    last=first;
 
-    while(last->next!=NULL)
-        last=last->next;
+    prevNode->nextNode = (Node*)0;
+    free(currentNode);
+}
+
+void pop_at(List* list, int pos) {
+    Node* currentNode = list->head;
+    Node* prevNode = (Node*)list;
+
+    for(int i = 0; i < pos; i++) {
+        prevNode = currentNode;
+        currentNode = currentNode->nextNode;
+    }
+
+    prevNode->nextNode = currentNode->nextNode;
+    free(currentNode);
+}
+
+void print(List* list) {
+    if(list->size == 0){
+        printf("The list is empty\n");
+        return;
+    }
+
+    Node* currentNode = list->head;
+
+    printf("The contents of the list are: ");
+    while(currentNode != (Node*)0) {
+        printf("%d ", currentNode->data);
+        currentNode = currentNode->nextNode;
+    }
+    printf("\n");
+}
+
+int main() {
+    // List list;
+    // listConstructor(&list);
+
+    // push_back(&list, 6);
+    // push_back(&list, 10);
+    // push_back(&list, 20);
+
+    // print(&list);
+
+    List* list;
+    listConstructorHeap(&list);
+
+    push_back(list, 6);
+    push_back(list, 10);
+    push_back(list, 20);
+    push_front(list, 20);
+    push_front(list, 30);
+    push_front(list, 40);
+    push_at(list, 1, 100);
+
+    print(list);
+
+    pop_front(list);
+    pop_front(list);
+    pop_front(list);
     
-    last->next=New;
+    print(list);
 
+    pop_back(list);
+    pop_back(list);
 
+    print(list);
 
-    return first;
+    push_back(list, 6);
+    push_back(list, 10);
 
-}
+    print(list);
 
-NODE delete_beg(NODE first)
-{
-    NODE temp;
-    // temp=getnode();
+    push_front(list, 20);
+    push_front(list, 30);
 
-    if(first==NULL)
-    {
-        printf("There is nothing to delete");
-        return NULL;
-    }
+    print(list);
 
-    temp=first;
-    temp=temp->next;
+    pop_at(list, 0);
+    pop_at(list, 2);
 
-    printf("Item has been deleted:%d\n",first->value);
-    free(first);
+    print(list);
 
-    return(temp);
-}
-
-NODE delete_end(NODE first)
-{
-    NODE prev,curr;
-
-    if(first==NULL)
-    {
-        printf("Nothing to delete");
-        return NULL;
-    }
-
-    // prev=getnode();
-    // curr=getnode();
-
-    prev=NULL;
-    curr=first;
-
-    while(curr->next!=NULL)
-    {   
-        prev=curr;
-        curr=curr->next;
-    }
-
-    prev->next=NULL;
-    free(curr);
-    return(first);
-}
-
-void display(NODE first)
-{
-    NODE temp;
-    // temp=getnode();
-    temp=first;
-
-    while(temp!=NULL)
-    {
-        printf(" %d",temp->value);
-        temp=temp->next;
-    }
+    return 0;
 }
