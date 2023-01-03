@@ -143,6 +143,24 @@ void list_pop_at(List* list, int pos) {
     list->size--;
 }
 
+void list_remove_duplicates(List* list) {
+    Node* currentNode = (Node*)list;
+
+    while(currentNode->nextNode != (Node*)0){
+        currentNode = currentNode->nextNode;
+
+        if(currentNode->nextNode->data == currentNode->data) {
+            int tempValue = currentNode->data;
+            Node* tempNode = currentNode->nextNode;
+
+            while(tempNode->nextNode->data == tempValue)
+                tempNode = tempNode->nextNode;
+
+            currentNode->nextNode = tempNode->nextNode;
+        }
+    }
+}
+
 void list_print(List* list) {
     if(list->size == 0){
         printf("The list is empty\n");
