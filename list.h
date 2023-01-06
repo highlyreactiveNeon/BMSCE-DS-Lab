@@ -176,3 +176,45 @@ void list_print(List* list) {
     }
     printf("\n");
 }
+
+void list_reverse(List* list) {
+    if(list->head == (Node*)0) return;
+
+    Node* curr = list->head->nextNode;
+    Node* prev = list->head;
+    Node* temp;
+
+    while(curr->nextNode != (Node*)0) {
+        temp = curr->nextNode;
+        curr->nextNode = prev;
+        prev = curr;
+        curr = temp;    
+    }
+
+    curr->nextNode = prev;
+    list->head->nextNode = (Node*)0;
+    list->head = curr;
+}
+
+void list_concatenate(List* list1, List* list2) {
+    if(list1->head == (Node*)0)
+        if(list2->head == (Node*)0)
+            return;
+        else
+            list1->head = list2->head;
+    else {
+        if(list2->head == (Node*)0)
+            return;
+        else {
+            Node* curr = list1->head;
+
+            while(curr->nextNode != (Node*)0) {
+                curr = curr->nextNode;
+            }
+        }
+    }
+}
+
+void list_bubble_sort(List* list) {
+    
+}
