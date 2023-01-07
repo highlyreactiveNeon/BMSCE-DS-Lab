@@ -1,3 +1,6 @@
+# List concatenation and reversing
+
+```c
 typedef struct ListNode* NODE;
 
 NODE mergeTwoLists(NODE list1, NODE list2){
@@ -33,3 +36,4 @@ NODE mergeTwoLists(NODE list1, NODE list2){
   
   return list1;
 }
+```
