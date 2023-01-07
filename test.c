@@ -1,11 +1,11 @@
 #include<stdio.h>
 #include<stdlib.h>
 
-#include"headers/dstack.h"
+#include"headers/stack.h"
 
 int main() {
-    DStack* stk;
-    dstack_constructor_heap(&stk);
+    Stack* stk;
+    stack_constructor_heap(&stk, 2);
 
     int ele;
     int temp;
@@ -20,13 +20,13 @@ int main() {
         switch(choice){
             case 1:
                 scanf("%d", &temp);
-                dstack_push(stk, temp);
+                stack_push(stk, temp);
                 break;
             case 2:
-                dstack_pop(stk);
+                stack_pop(stk);
                 break;
             case 3:
-                dstack_print(stk);
+                stack_print(stk);
                 break;
             case 4:
                 bRunCode = 0;
