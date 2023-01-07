@@ -13,23 +13,6 @@ typedef struct List {
     int size;
 } List;
 
-// void list_constructor(List* list);
-// void list_constructor_heap(List** list);
-
-// void list_push_front(List* list, int val);
-// void list_push_back(List* list, int val);
-// void list_push_at(List* list, int pos, int val);
-
-// int list_front(List* list);
-// int list_back(List* list);
-// int list_at(List* list, int pos);
-
-// void list_pop_front(List* list);
-// void list_pop_back(List* list);
-// void list_pop_at(List* list, int pos);
-
-// void list_print(List* list);
-
 void list_constructor(List* list) {
     list->size = 0;
     list->head = (Node*)0;
@@ -159,25 +142,80 @@ void list_print(List* list) {
     printf("\n");
 }
 
-void list_remove_duplicates(List* list) {
-    Node* currentNode = (Node*)list;
+// void list_remove_duplicates(List* list) {
+//     Node* currentNode = (Node*)list;
 
-    while(currentNode->nextNode != (Node*)0){
-        currentNode = currentNode->nextNode;
+//     while(currentNode->nextNode != (Node*)0){
+//         currentNode = currentNode->nextNode;
 
-        if(currentNode->nextNode->data == currentNode->data) {
-            int tempValue = currentNode->data;
-            Node* tempNode = currentNode->nextNode;
+//         if(currentNode->nextNode->data == currentNode->data) {
+//             int tempValue = currentNode->data;
+//             Node* tempNode = currentNode->nextNode;
 
-            while(tempNode->nextNode->data == tempValue)
-                tempNode = tempNode->nextNode;
+//             while(tempNode->nextNode->data == tempValue)
+//                 tempNode = tempNode->nextNode;
 
-            currentNode->nextNode = tempNode->nextNode;
+//             currentNode->nextNode = tempNode->nextNode;
+//         }
+//     }
+// }
+
+void list_reverse(List* list) {
+    if(list->head == (Node*)0) return;
+
+    Node* curr = list->head->nextNode;
+    Node* prev = list->head;
+    Node* temp;
+
+    while(curr->nextNode != (Node*)0) {
+        temp = curr->nextNode;
+        curr->nextNode = prev;
+        prev = curr;
+        curr = temp;    
+    }
+
+    curr->nextNode = prev;
+    list->head->nextNode = (Node*)0;
+    list->head = curr;
+}
+
+void list_concatenate(List* list1, List* list2) {
+    if(list1->head == (Node*)0)
+        if(list2->head == (Node*)0)
+            return;
+        else
+            list1->head = list2->head;
+    else {
+        if(list2->head == (Node*)0)
+            return;
+        else {
+            Node* curr = list1->head;
+
+            while(curr->nextNode != (Node*)0) {
+                curr = curr->nextNode;
+            }
         }
     }
 }
 
-// using stack
-void list_reverse(List* list) {
-    
+void list_bubble_sort(List* list) {
+
 }
+
+// // Function Declarations
+// void list_constructor(List* list);
+// void list_constructor_heap(List** list);
+
+// void list_push_front(List* list, int val);
+// void list_push_back(List* list, int val);
+// void list_push_at(List* list, int pos, int val);
+
+// int list_front(List* list);
+// int list_back(List* list);
+// int list_at(List* list, int pos);
+
+// void list_pop_front(List* list);
+// void list_pop_back(List* list);
+// void list_pop_at(List* list, int pos);
+
+// void list_print(List* list);
