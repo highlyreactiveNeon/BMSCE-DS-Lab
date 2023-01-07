@@ -143,6 +143,22 @@ void list_pop_at(List* list, int pos) {
     list->size--;
 }
 
+void list_print(List* list) {
+    if(list->size == 0){
+        printf("The list is empty\n");
+        return;
+    }
+
+    Node* currentNode = list->head;
+
+    printf("The contents of the list are: ");
+    while(currentNode != (Node*)0) {
+        printf("%d ", currentNode->data);
+        currentNode = currentNode->nextNode;
+    }
+    printf("\n");
+}
+
 void list_remove_duplicates(List* list) {
     Node* currentNode = (Node*)list;
 
@@ -161,18 +177,7 @@ void list_remove_duplicates(List* list) {
     }
 }
 
-void list_print(List* list) {
-    if(list->size == 0){
-        printf("The list is empty\n");
-        return;
-    }
-
-    Node* currentNode = list->head;
-
-    printf("The contents of the list are: ");
-    while(currentNode != (Node*)0) {
-        printf("%d ", currentNode->data);
-        currentNode = currentNode->nextNode;
-    }
-    printf("\n");
+// using stack
+void list_reverse(List* list) {
+    
 }

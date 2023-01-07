@@ -10,7 +10,7 @@ int main() {
     char bIsRunning = 1;
     while(bIsRunning) {
         printf("Enter a operation:\n");
-        printf("0.Exit\n1.Display\n2.Push Front\n3.Push Back\n4.Push at any location\n5.Pop Front\n6.Pop Back\n7.Pop at any location\n");
+        printf("0.Exit\n1.Size\n2.Display\n3.Push Front\n4.Push Back\n5.Push at any location\n6.Pop Front\n7.Pop Back\n8.Pop at any location\n");
 
         scanf("%d", &choice);
 
