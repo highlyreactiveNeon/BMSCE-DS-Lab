@@ -5,8 +5,8 @@
 
 typedef struct Stack {
     int* container;
-    int size;
-    int capacity;
+    size_t size;
+    size_t capacity;
 } Stack;
 
 void stack_constructor(Stack* stack, size_t capacity) {
@@ -27,7 +27,7 @@ void stack_constructor_heap(Stack** stack, size_t capacity) {
     (*stack)->container = (int*)malloc(sizeof(int));
 
     if(*stack == NULL){
-        fprintf(stderr, "[ERR] stack_constructor_heap(): Failed to allocate stack of heap\n");
+        fprintf(stderr, "[ERR] stack_constructor_heap(): Failed to allocate stack in heap\n");
         exit(1);
     }
 
@@ -58,7 +58,7 @@ void stack_pop(Stack* stack) {
 
 void stack_print(Stack* stack) {
     if(stack->size == 0) {
-        printf("The list is empty\n");
+        printf("The stack is empty\n");
         return;
     }
 

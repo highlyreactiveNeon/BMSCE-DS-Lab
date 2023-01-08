@@ -5,8 +5,8 @@
 
 typedef struct DStack {
     int* container;
-    int size;
-    int capacity;
+    size_t size;
+    size_t capacity;
 } DStack;
 
 void dstack_constructor(DStack* stack) {
@@ -27,7 +27,7 @@ void dstack_constructor_heap(DStack** stack) {
     (*stack)->container = (int*)malloc(sizeof(int));
 
     if(*stack == NULL){
-        fprintf(stderr, "[ERR] dstack_constructor_heap(): Failed to allocate dstack of heap\n");
+        fprintf(stderr, "[ERR] dstack_constructor_heap(): Failed to allocate dstack in heap\n");
         exit(1);
     }
 
@@ -63,7 +63,7 @@ void dstack_pop(DStack* stack) {
 
 void dstack_print(DStack* stack) {
     if(stack->size == 0) {
-        printf("The list is empty\n");
+        printf("The dstack is empty\n");
         return;
     }
 
