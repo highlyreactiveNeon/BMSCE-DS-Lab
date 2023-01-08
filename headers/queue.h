@@ -12,6 +12,7 @@ typedef struct Queue {
 
 void queue_constructor(Queue* queue, size_t capacity) {
     queue->size = 0;
+    queue->front = 0;
     queue->capacity = capacity;
     queue->container = (int*)malloc(sizeof(int)*capacity);
 
@@ -24,6 +25,7 @@ void queue_constructor(Queue* queue, size_t capacity) {
 void queue_constructor_heap(Queue** queue, size_t capacity) {
     *queue = (Queue*)malloc(sizeof(Queue));
     (*queue)->size = 0;
+    (*queue)->front = 0;
     (*queue)->capacity = capacity;
     (*queue)->container = (int*)malloc(sizeof(int));
 
@@ -55,7 +57,7 @@ void queue_dequeue(Queue* queue) {
     }
 
     queue->size--;
-    queue->front++;
+    queue->front = (queue->front + 1) % queue->capacity;
 }
 
 void queue_print(Queue* queue) {
@@ -65,8 +67,16 @@ void queue_print(Queue* queue) {
     }    
 
     printf("The contents of the queue are:\n");
-    for(int i = 0; i < queue->size; i++)
+    
+    int i = queue->front;
+    int count = 0;
+    while(count < queue->size) {
         printf("%d ", queue->container[i]);
+
+        i = (i + 1) % queue->capacity;
+        count++;
+    }
+    
 
     printf("\n");
 }
