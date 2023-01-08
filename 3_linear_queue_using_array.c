@@ -5,8 +5,8 @@ void push();
 void pop();
 void show();
 int inp_arr[SIZE];
-int Rear = - 1;
-int Front = - 1;
+int r = - 1;
+int f = - 1;
 main()
 {
     int ch;
@@ -40,43 +40,43 @@ main()
 void push()
 {
     int insert_item;
-    if (Rear == SIZE - 1)
+    if (r == SIZE - 1)
        printf("Overflow \n");
     else
     {
-        if (Front == - 1)
+        if (f == - 1)
 
-        Front = 0;
+        f = 0;
         printf("Element to be inserted in the Queue\n : ");
         scanf("%d", &insert_item);
-        Rear = Rear + 1;
-        inp_arr[Rear] = insert_item;
+        r = r + 1;
+        inp_arr[r] = insert_item;
     }
 } 
 
 void pop()
 {
-    if (Front == - 1 || Front > Rear)
+    if (f == - 1 || f > r)
     {
         printf("Underflow \n");
         return ;
     }
     else
     {
-        printf("Element deleted from the Queue: %d\n", inp_arr[Front]);
-        Front = Front + 1;
+        printf("Element deleted from the Queue: %d\n", inp_arr[f]);
+        f = f + 1;
     }
 } 
 
 void show()
 {
 
-    if (Front == - 1)
+    if (f == - 1)
         printf("Empty Queue \n");
     else
     {
         printf("Queue: \n");
-        for (int i = Front; i <= Rear; i++)
+        for (int i = f; i <= r; i++)
             printf("%d ", inp_arr[i]);
         printf("\n");
     }
